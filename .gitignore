@@ -1,0 +1,16 @@
+*.pyc
+.coverage/
+.eggs/
+.pip/
+.pip2/
+.pip27/
+.pip3/
+.pip32/
+.pip34/
+.pip35/
+.sandbox_name
+build/
+coverage.xml
+dist/
+htmlcov/
+pydora.egg-info/

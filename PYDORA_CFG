@@ -1,0 +1,13 @@
+[user]
+username = socrates315@gmail.com
+password = Socky123
+
+[api]
+username = iphone
+api_host = tuner.pandora.com/services/json/
+encryption_key = 721^26xE22776
+decryption_key = 20zE1E47BE57$51
+device = IP01
+password = P2E4FC0EAD3*878N92B2CDp34I0B1@388137C
+default_audio_quality = highQuality
+
