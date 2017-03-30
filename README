@@ -1,0 +1,30 @@
+************************************************************************************
+The Grand Twitter Controlled, Pandora Powered, Music Survey Station Usage Guide
+************************************************************************************
+Some set-up is required to run this program. Hopefully I can list everything 
+needed from memory.
+1. Install Pydora and required dependancies
+	sudo apt-get update
+	sudo apt-get upgrade
+	sudo apt-get install python-dev
+	sudo pip install cryptography
+	sudo pip install pydora
+2. Place the provided .pydora.cfg file in ~/.pydora.cfg
+3. Edit config file with personal info. Use apps.twitter.com to get personal keys.
+4. To run on start, place the following lines at the end of home/pi/.config/lxsession/LXDE-pi/autostart
+	@usr/bin/python /(location of twitter_gui.py)
+5. Due to internet connectivity problems with twitter's api, it is good practice to
+have your device restart every day. To do this, add the following line to crontab -e
+	0 5 * * * sudo reboot
+6. To exit fullscreen, hit escape on your keyboard.
+7. There seems to be problems connecting to Twitter after a hard-boot. Grab a keyboard
+and sudo reboot to fix this.
+8. If running from somwhere that is not the desktop, make sure to change the 
+file directories in the code. I am not good enough at python to know how to
+set these automatically. If you do, feel free to change them.
+
+
+This is a trash peice of software with so many flaws, but it was fun to build 
+and I learned a lot. For any questions, comments, and concerns, contact
+rjohnson13@zagmail.gonzaga.edu
+Robert Johnson, Gonzaga class of 2019

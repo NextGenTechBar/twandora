@@ -22,15 +22,9 @@ import tkMessageBox
 #import needed to run gui and twitter process simultaneously
 from multiprocessing import Process, Manager
 
-#Keys for the Hemmingson Playlist Account
-CK = "cmqxmjAz0jMrpTKKgRnNnEgbW"
-CS = "G6QSGbXhhNk5OqDvFv16FncfVSX3knzImX6BuEFrAM4oKjKzdL"
-AT = "846480128859254784-A4pfADcsSdjqucrkI72BEWagua52oWn"
-ATS = "JgIczODmNBHjb7KIHNs79HR0Pmx4zBPwCCbc1dRTLJOJP"
 
-
-
-#Keys for the Next Gen Tech Bar Account
+#Global Variable keys (I got these from the twitter app page)
+#need to change them for other twitter accounts
 consumer_key = "3gI3AIYm8OkxfkU9Er81DZ4Kd"
 consumer_secret = "drCThGHlqjHfF3QcFiEWB1LjvsglEiHoiKQ5OeB1UiYCx7PyMl"
 access_token = "2462366071-WHcsSVijoOa9tHWokK8ZNd1zQRJSseJPojGQGut"
@@ -90,7 +84,7 @@ class simpleapp_tk(Tkinter.Tk):
             self.b = Tkinter.Button(self, text="Now \n Playing",
                                     width=5, height=2,
                                     justify='center', relief='groove',
-                                    cursor='dot', font=("Times",8))
+                                    cursor='dot', font=("Times",10))
             self.b.config(command= lambda position=i: self.now_playing_button(position))  #added i+1 argument to on_button_click. 
             self.b.grid(column=0, row=i+1, columnspan=1, sticky='EW')        
 
@@ -99,9 +93,9 @@ class simpleapp_tk(Tkinter.Tk):
             self.text_variable_list[i][0] = Tkinter.StringVar()
             station = Tkinter.Label(self, textvariable=self.text_variable_list[i][0],
                                   anchor="nw", fg="white", bg="#06274F",       #change colors
-                                  width=14, height=1,
+                                  width=13, height=1,
                                   justify='left', relief='groove',
-                                  cursor='dot', font=("Times",23))
+                                  cursor='dot', font=("Times",20))
             station.grid(column=1, row=i+1, columnspan=1, sticky='EW')
             self.text_variable_list[i][0].set(self.sorted_lst[i][0])
 
@@ -110,18 +104,18 @@ class simpleapp_tk(Tkinter.Tk):
             self.text_variable_list[i][2] = Tkinter.StringVar()
             station = Tkinter.Label(self, textvariable=self.text_variable_list[i][2],
                                   anchor="nw", fg="white", bg="#0072CE",   #change colors
-                                  width=2, height=1,
+                                  width=5, height=1,
                                   justify='left', relief='groove',
-                                  cursor='dot', font=("Times",23))
+                                  cursor='dot', font=("Times",20))
             station.grid(column=2, row=i+1, columnspan=1, sticky='EW')
             self.text_variable_list[i][2].set(self.sorted_lst[i][1])
 
-        #makes third column, which is the delete button
+        #makes third column, which is the button
         for i in range (0, self.label_amount):
             self.b = Tkinter.Button(self, text="Delete",
                                     width=5, height=1,
                                     justify='left', relief='groove',
-                                    cursor='dot', font=("Times",16))
+                                    cursor='dot', font=("Times",15))
             self.b.config(command= lambda position=i: self.delete_button(position))  #added i+1 argument to on_button_click. 
             self.b.grid(column=3, row=i+1, columnspan=1, sticky='EW')  
 
@@ -132,9 +126,9 @@ class simpleapp_tk(Tkinter.Tk):
         for i in range (0, self.label_amount):
             self.b = Tkinter.Button(self, text="Now \n Playing",
                                     width=5, height=2,
-                                    justify='center', relief='groove',
-                                    cursor='dot', font=("Times",8))
-            self.b.config(command= lambda position=i+self.label_amount: self.now_playing_button(position)) 
+                                    justify='left', relief='groove',
+                                    cursor='dot', font=("Times",10))
+            self.b.config(command= lambda position=i: self.now_playing_button(position))  #added i+1 argument to on_button_click. 
             self.b.grid(column=4, row=i+1, columnspan=1, sticky='EW')  
         
 
@@ -143,9 +137,9 @@ class simpleapp_tk(Tkinter.Tk):
             self.text_variable_list[i+self.label_amount][0] = Tkinter.StringVar()
             station = Tkinter.Label(self, textvariable=self.text_variable_list[i+self.label_amount][0],
                                   anchor="nw", fg="white", bg="#06274F",       #change colors
-                                  width=14, height=1,
+                                  width=13, height=1,
                                   justify='left', relief='groove',
-                                  cursor='dot', font=("Times",23))
+                                  cursor='dot', font=("Times",20))
             station.grid(column=5, row=i+1, columnspan=1, sticky='EW')
             self.text_variable_list[i+self.label_amount][0].set(self.sorted_lst[i+self.label_amount][0])
 
@@ -155,9 +149,9 @@ class simpleapp_tk(Tkinter.Tk):
             self.text_variable_list[i+self.label_amount][2] = Tkinter.StringVar()
             station = Tkinter.Label(self, textvariable=self.text_variable_list[i+self.label_amount][2],
                                   anchor="nw", fg="white", bg="#0072CE",   #change colors
-                                  width=2, height=1,
+                                  width=5, height=1,
                                   justify='left', relief='groove',
-                                  cursor='dot', font=("Times",23))
+                                  cursor='dot', font=("Times",20))
             station.grid(column=6, row=i+1, columnspan=1, sticky='EW')
             self.text_variable_list[i+self.label_amount][2].set(self.sorted_lst[i+self.label_amount][1])
 
@@ -166,11 +160,12 @@ class simpleapp_tk(Tkinter.Tk):
             self.b = Tkinter.Button(self, text="Delete",
                                     width=5, height=1,
                                     justify='left', relief='groove',
-                                    cursor='dot', font=("Times",16),
+                                    cursor='dot', font=("Times",15),
                                     highlightbackground='grey')
             self.b.config(command= lambda position=i+self.label_amount: self.delete_button(position))  #added i+1 argument to on_button_click. 
             self.b.grid(column=7, row=i+1, columnspan=1, sticky='EW')  
 #####################################################################################################
+#
 
      
         self.grid_columnconfigure(0,weight=1)
@@ -189,8 +184,7 @@ class simpleapp_tk(Tkinter.Tk):
         self.geometry("{0}x{1}+0+0".format(
             self.winfo_screenwidth(), self.winfo_screenheight()))
         self.bind('<Escape>', self.toggle_fullscreen)  
-##################################################################################################################3
-        #Assortment of functions to make the GUI work
+
         
     def toggle_fullscreen(self, event=None):
         self.state = not self.state
@@ -217,7 +211,7 @@ class simpleapp_tk(Tkinter.Tk):
                     update = True
             n = n-1
         while(len(unsorted_lst)<self.label_amount*2+1):
-            unsorted_lst.append(['',0])
+            unsorted_lst.append(['N/A',0])
         return (unsorted_lst)
 
 
@@ -241,23 +235,7 @@ class simpleapp_tk(Tkinter.Tk):
 
 
     def now_playing_button(self,position):
-        print ("help me")
-        result = tkMessageBox.askquestion("Tweet?", "Tweet out " + self.sorted_lst[position][0] + "?", icon='warning')
-        if result == 'yes':
-            self.now_playing(self.sorted_lst[position][0])
-            time.sleep(0.5)
-        else:
-            self.stop_blink()
-
-
-    def now_playing(self,station):
-        auth = tweepy.OAuthHandler(CK, CS)
-        auth.set_access_token(AT, ATS)
-        api = tweepy.API(auth)
-        api.update_status("You voice has been heard! is now playing the " + station + " radio station!\n" + time.strftime("%a %b %d, %I:%M %p"))
-        
-        
-        
+        pass
 
     #Deletes the entries of the pressed button
     def delete_button(self, position):
@@ -266,6 +244,7 @@ class simpleapp_tk(Tkinter.Tk):
             self.do_blink = True
             self.delete_station(self.sorted_lst[position][0])
             time.sleep(0.5)
+            #self.sort()
             self.check_stations()
         else:
             self.stop_blink()
@@ -486,10 +465,10 @@ def twitter():
             station = search(body)
             if station != 'error':
                 save_station(station)
-            #api.update_status("@" + name + "\nTweet recived! Logging " + station + " into our system.\n" + time )    
+    
             if station == ('error'):
                 pass
-                #api.update_status("@" + name + "\nWe couldn't find that station. Try tweeting just a Pandora radio statio and the hashtag!\n" + time )
+                #api.update_status("@" + name + "\nWe couldn't find that station. Try tweeting just the radio statio and the hashtag.\n" + time )
         
         def on_error(self, status):
             time.sleep(3)
