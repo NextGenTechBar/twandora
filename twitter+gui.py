@@ -22,7 +22,7 @@ import tkMessageBox
 #import needed to run gui and twitter process simultaneously
 from multiprocessing import Process, Manager
 
-#Keys for the Hemmingson Playlist Account
+#Keys for the Hemmingson Playlist Twitter Account
 CK = "cmqxmjAz0jMrpTKKgRnNnEgbW"
 CS = "G6QSGbXhhNk5OqDvFv16FncfVSX3knzImX6BuEFrAM4oKjKzdL"
 AT = "846480128859254784-A4pfADcsSdjqucrkI72BEWagua52oWn"
@@ -30,7 +30,7 @@ ATS = "JgIczODmNBHjb7KIHNs79HR0Pmx4zBPwCCbc1dRTLJOJP"
 
 
 
-#Keys for the Next Gen Tech Bar Account
+#Keys for the Robert's twitter account Account
 consumer_key = "3gI3AIYm8OkxfkU9Er81DZ4Kd"
 consumer_secret = "drCThGHlqjHfF3QcFiEWB1LjvsglEiHoiKQ5OeB1UiYCx7PyMl"
 access_token = "2462366071-WHcsSVijoOa9tHWokK8ZNd1zQRJSseJPojGQGut"
@@ -480,16 +480,21 @@ def twitter():
             time = tweet['created_at']
             time = time[:-10]
 
+            #gets the tweet id for in_reply_to_status
+            tweet_id = tweet['id']
+            
+
             save_tweet(name,time,body)
 
             body = tweet_parse(body)
             station = search(body)
             if station != 'error':
+                print ("station not error " + station)
                 save_station(station)
-            #api.update_status("@" + name + "\nTweet recived! Logging " + station + " into our system.\n" + time )    
+                api.update_status(status="@" + name + "\nTweet recived! Logging " + station + " into our system.\n" + time, in_reply_to_status=tweet_id)    
             if station == ('error'):
-                pass
-                #api.update_status("@" + name + "\nWe couldn't find that station. Try tweeting just a Pandora radio statio and the hashtag!\n" + time )
+                print("station error")
+                api.update_status(status="@" + name + "\nWe couldn't find that station. Try tweeting just a Pandora radio statio and the hashtag!\n" + time, in_reply_to_status_id=tweet_id)
         
         def on_error(self, status):
             time.sleep(3)
@@ -502,23 +507,18 @@ def twitter():
             s.write('Failed to reboot ' + time.strftime("%a %b %d, %I:%M %p") + '\n')
             s.close()
 
-            '''
-            print (status)
-            print('restarting...')
-            s = open(STATION_SAVE, 'a')
-            s.write(status + ' ' + time.strftime("%a %b %d, %I:%M %p") + '\n')
-            s.close()
-            time.sleep(30)
-            '''
 
     #establishes streaming connection with twitter
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AT, ATS)
     l = StdOutListener()
+    
     print "Scanning for Hemmingson Playlist Requests"
     stream = tweepy.Stream(auth, l)
+    
     #determines what keywords to track. Best if used on a twitter handle or hashtag
     stream.filter(track=['hemmplaylist'])
+    
     #Prevents weird erros in streaming. I forget what, but leave it in.
     while(stream.running):
         time.sleep(0)
