@@ -31,10 +31,10 @@ ATS = "JgIczODmNBHjb7KIHNs79HR0Pmx4zBPwCCbc1dRTLJOJP"
 
 
 #Keys for the Robert's twitter account Account
-consumer_key = "3gI3AIYm8OkxfkU9Er81DZ4Kd"
-consumer_secret = "drCThGHlqjHfF3QcFiEWB1LjvsglEiHoiKQ5OeB1UiYCx7PyMl"
-access_token = "2462366071-WHcsSVijoOa9tHWokK8ZNd1zQRJSseJPojGQGut"
-access_token_secret = "gtbePKnCgIl6UpkrUGLks3o77WYgKoWeRnVKXOLIg2kQ4"
+#consumer_key = "3gI3AIYm8OkxfkU9Er81DZ4Kd"
+#consumer_secret = "drCThGHlqjHfF3QcFiEWB1LjvsglEiHoiKQ5OeB1UiYCx7PyMl"
+#access_token = "2462366071-WHcsSVijoOa9tHWokK8ZNd1zQRJSseJPojGQGut"
+#access_token_secret = "gtbePKnCgIl6UpkrUGLks3o77WYgKoWeRnVKXOLIg2kQ4"
 
 
 #File directiory locations. Change to directory that holds twitter_music_poll
@@ -434,8 +434,8 @@ def twitter():
         f.write('\n' + string)
         f.close()  
     #Acual main file. This is what runs when you execute the file
-    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-    auth.set_access_token(access_token, access_token_secret)
+    auth = tweepy.OAuthHandler(CK, CS)
+    auth.set_access_token(AT, ATS)
     api = tweepy.API(auth)
 
     def tweet_parse(body):
@@ -491,7 +491,7 @@ def twitter():
             if station != 'error':
                 print ("station not error " + station)
                 save_station(station)
-                api.update_status(status="@" + name + "\nTweet recived! Logging " + station + " into our system.\n" + time, in_reply_to_status=tweet_id)    
+                api.update_status(status="@" + name + "\nTweet recived! Logging " + station + " into our system.\n" + time, in_reply_to_status_id=tweet_id)    
             if station == ('error'):
                 print("station error")
                 api.update_status(status="@" + name + "\nWe couldn't find that station. Try tweeting just a Pandora radio statio and the hashtag!\n" + time, in_reply_to_status_id=tweet_id)
